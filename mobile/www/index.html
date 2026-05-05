@@ -3,8 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>Bot Flow Builder 7.8</title>
+<meta name="theme-color" content="#000000">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>BotFlow</title>
 <script src="https://code.iconify.design/iconify-icon/2.1.0/iconify-icon.min.js"></script>
+<script>
+  // Capacitor StatusBar — делаем фон прозрачным и WebView под статусбаром
+  document.addEventListener('deviceready', () => {
+    try {
+      const sb = window.Capacitor?.Plugins?.StatusBar;
+      if (sb) { sb.setOverlaysWebView({ overlay: true }); sb.setBackgroundColor({ color: '#00000000' }); sb.setStyle({ style: 'DARK' }); }
+    } catch(_){}
+  });
+  window.addEventListener('load', () => {
+    try {
+      const sb = window.Capacitor?.Plugins?.StatusBar;
+      if (sb) { sb.setOverlaysWebView({ overlay: true }); sb.setBackgroundColor({ color: '#00000000' }); }
+    } catch(_){}
+  });
+</script>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
@@ -81,9 +99,9 @@ html, body {
   pointer-events: none;
   background: linear-gradient(
     to bottom,
-    rgba(0,0,0,0.88) 0%,
-    rgba(0,0,0,0.72) 35%,
-    rgba(0,0,0,0.45) 65%,
+    rgba(0,0,0,0.55) 0%,
+    rgba(0,0,0,0.30) 40%,
+    rgba(0,0,0,0.10) 75%,
     rgba(0,0,0,0) 100%
   );
   transform: translateZ(0);
@@ -1573,7 +1591,7 @@ html, body {
   <div class="spacer"></div>
   <div id="node-count" style="display:none">0 nodes</div>
   <button class="tb-btn icon" id="btn-select" title="Выделить" aria-label="Выделить">
-    <iconify-icon icon="solar:cursor-bold"></iconify-icon>
+    <iconify-icon icon="solar:cursor-square-bold"></iconify-icon>
   </button>
   <button class="tb-btn icon" id="btn-export" title="Экспорт" aria-label="Экспорт">
     <iconify-icon icon="solar:download-linear"></iconify-icon>
@@ -1694,7 +1712,7 @@ html, body {
 (function preloadSolarIcons() {
   const ALL_ICONS = [
     'solar:play-circle-bold',
-    'solar:cursor-bold',
+    'solar:cursor-bold','solar:cursor-square-bold',
     'solar:download-linear',
     'solar:arrow-left-linear',
     'solar:check-circle-bold','solar:check-read-bold',

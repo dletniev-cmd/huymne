@@ -1,16 +1,28 @@
 {
   "appId": "app.lovable.botflowbuilder",
-  "appName": "Bot Flow Builder",
+  "appName": "BotFlow",
   "webDir": "www",
   "android": {
     "allowMixedContent": true,
-    "webContentsDebuggingEnabled": true
+    "webContentsDebuggingEnabled": true,
+    "backgroundColor": "#00000000"
   },
+  "backgroundColor": "#000000",
   "plugins": {
     "StatusBar": {
       "overlaysWebView": true,
       "style": "DARK",
       "backgroundColor": "#00000000"
+    },
+    "SplashScreen": {
+      "launchShowDuration": 1200,
+      "launchAutoHide": true,
+      "backgroundColor": "#000000",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER",
+      "showSpinner": false,
+      "splashFullScreen": true,
+      "splashImmersive": true
     }
   }
 }

@@ -8,6 +8,9 @@ on:
       - '.github/workflows/android-apk.yml'
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -39,8 +42,33 @@ jobs:
       - name: Add Android platform
         run: npx cap add android
 
+      - name: Generate icons & splash from resources/
+        run: npx capacitor-assets generate --android --assetPath resources || true
+
       - name: Sync Capacitor
         run: npx cap sync android
+
+      - name: Force transparent status bar (styles.xml)
+        run: |
+          STYLES=android/app/src/main/res/values/styles.xml
+          if [ -f "$STYLES" ]; then
+            python3 - <<'PY'
+          import re,sys,os
+          p='android/app/src/main/res/values/styles.xml'
+          s=open(p).read()
+          add='''
+              <item name="android:statusBarColor">@android:color/transparent</item>
+              <item name="android:navigationBarColor">@android:color/transparent</item>
+              <item name="android:windowTranslucentStatus">false</item>
+              <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+              <item name="android:windowLightStatusBar">false</item>
+          '''
+          s=re.sub(r'(<style name="AppTheme.NoActionBarLaunch"[^>]*>)', r'\1'+add, s)
+          s=re.sub(r'(<style name="AppTheme.NoActionBar"[^>]*>)', r'\1'+add, s)
+          open(p,'w').write(s)
+          print(s)
+          PY
+          fi
 
       - name: Make gradlew executable
         run: chmod +x android/gradlew
