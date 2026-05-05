@@ -1,0 +1,16 @@
+{
+  "appId": "app.lovable.botflowbuilder",
+  "appName": "Bot Flow Builder",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": true,
+    "webContentsDebuggingEnabled": true
+  },
+  "plugins": {
+    "StatusBar": {
+      "overlaysWebView": true,
+      "style": "DARK",
+      "backgroundColor": "#00000000"
+    }
+  }
+}
